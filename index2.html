@@ -16,6 +16,7 @@ body {
     color: #e6eaff;
 }
 
+/* NAVBAR */
 nav {
     position: fixed;
     top: 0;
@@ -46,6 +47,7 @@ nav h1 {
     color: transparent;
 }
 
+/* MAIN CONTENT */
 .content {
     padding: 10vw 2vw 2vw;
 }
@@ -56,6 +58,7 @@ hr {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #fff, rgba(0, 0, 0, 0));
 }
 
+/* SEARCH BAR */
 .search {
     display: flex;
     margin-top: 2vw;
@@ -81,26 +84,50 @@ hr {
     cursor: pointer;
 }
 
+/* GAME GRID */
 #gamesList {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 2vw;
+    gap: 2vw;
+}
+
+/* GAME CARD FIXED + CLEAN */
+.gameCard {
+    background: #141c2b;
+    border-radius: 1vw;
+    padding: 1vw;
+    width: 17vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.gameCard:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 20px rgba(60,150,255,0.25);
 }
 
 .gameCard img {
-    width: 15.6vw;
-    height: 15.6vw;
-    border-radius: 1vw;
-    margin: .5vw;
-    cursor: pointer;
-    transition: 0.2s;
+    width: 100%;
+    height: 14vw;
+    object-fit: cover;
+    border-radius: 0.8vw;
 }
 
-.gameCard img:hover {
-    transform: scale(1.03);
+.gameTitle {
+    font-size: 1.4vw;
+    font-weight: 700;
+    text-align: center;
+    color: #cfe2ff;
+    margin-top: 0.7vw;
 }
 
+/* GAME PLAYER WINDOW */
 #playerScreen {
     display: none;
     position: fixed;
@@ -169,15 +196,18 @@ hr {
 </div>
 
 <script>
+/* GAME LIST */
 const games = [
     {
         title: "Sandboxels",
         logo: "images/slope.jpg",
+        featured: true,
         url: "https://cdn.jsdelivr.net/gh/RiceEater15/RiceGames@latest/game/sandboxels.html"
     },
     {
         title: "Bitlife",
         logo: "https://preview.redd.it/zxlu36u6xj651.jpg?width=320&crop=smart&auto=webp&s=11f21e5028693c2b0d05fa606e8d53dd938808ca",
+        featured: false,
         url: "https://cdn.jsdelivr.net/gh/RiceEater15/RiceGames@latest/game/bitlife.html"
     }
 ];
@@ -187,9 +217,9 @@ const searchBar = document.getElementById("searchBar");
 const playerScreen = document.getElementById("playerScreen");
 const frame = document.getElementById("gameFrame");
 
+/* CACHE GAME HTML */
 async function getGameHTML(url) {
     const key = "cache_" + url;
-
     let cached = localStorage.getItem(key);
     if (cached) return cached;
 
@@ -199,17 +229,24 @@ async function getGameHTML(url) {
     return html;
 }
 
+/* RENDER GAME CARDS */
 function render(list) {
     gamesList.innerHTML = "";
     list.forEach(g => {
-        const div = document.createElement("div");
-        div.className = "gameCard";
-        div.innerHTML = `<img src="${g.logo}" alt=""><div class="gameTitle">${g.title}</div>`;
-        div.onclick = () => openGame(g);
-        gamesList.appendChild(div);
+        const card = document.createElement("div");
+        card.className = "gameCard";
+
+        card.innerHTML = `
+            <img src="${g.logo}">
+            <div class="gameTitle">${g.title}</div>
+        `;
+
+        card.onclick = () => openGame(g);
+        gamesList.appendChild(card);
     });
 }
 
+/* LOAD GAME IN PAGE */
 async function openGame(game) {
     playerScreen.style.display = "flex";
 
@@ -223,32 +260,35 @@ async function openGame(game) {
     document.getElementById("fullscreenBtn").onclick = toggleFullscreen;
 }
 
+/* OPEN GAME IN ABOUT:BLANK */
 async function openABGame(url) {
     const html = await getGameHTML(url);
-    const newTab = window.open("about:blank", "_blank");
-    newTab.document.open();
-    newTab.document.write(html);
-    newTab.document.close();
+    const win = window.open("about:blank", "_blank");
+
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
 }
 
+/* FULLSCREEN */
 function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-        frame.requestFullscreen();
-    } else {
-        document.exitFullscreen();
-    }
+    if (!document.fullscreenElement) frame.requestFullscreen();
+    else document.exitFullscreen();
 }
 
+/* BACK BUTTON */
 document.getElementById("backBtn").onclick = () => {
     playerScreen.style.display = "none";
     frame.src = "about:blank";
 };
 
+/* SEARCH */
 searchBar.oninput = () => {
     const q = searchBar.value.toLowerCase();
     render(games.filter(g => g.title.toLowerCase().includes(q)));
 };
 
+/* INITIAL LOAD */
 render(games);
 </script>
 

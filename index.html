@@ -1,240 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rice Games</title>
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rice Games</title>
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
 
-        body {
-            background-color: #0b0f1c;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            color: #e6eaff;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            backdrop-filter: blur(12px) saturate(180%) brightness(80%);
-            background: rgba(20, 30, 60, 0.35);
-            display: flex;
-            height: 7vw;
-            width: 100%;
-            align-items: center;
-            padding: 0 1%;
-            z-index: 10;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        nav img {
-            height: 80%;
-            border-radius: 1vw;
-            margin-right: 1%;
-            box-shadow: 0 0 18px rgba(0, 153, 255, 0.35);
-        }
-
-        nav h1 {
-            font-size: 4vw;
-            font-weight: 900;
-            background: linear-gradient(90deg, #6cbcff, #2c7ffc);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .featured {
-            display: flex;
-            margin-top: 7vw;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 1vw;
-        }
-
-        .featured h1 {
-            font-size: 3.5vw;
-            width: 100%;
-            text-align: left;
-            padding-left: 2vw;
-            color: #fff;
-        }
-
-        .column, .row {
-            display: flex;
-            flex-direction: column;
-            margin: 0.5vw;
-        }
-
-        .row img {
-            width: 26vw;
-            height: 26vw;
-        }
-
-        .featured img {
-            width: 12.5vw;
-            height: 12.5vw;
-            border-radius: 1vw;
-            margin: .5vw;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .featured img:hover {
-            transform: scale(1.02);
-            filter: brightness(50%);
-        }
-
-        .play-button {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: 0.2s;
-        }
-
-        a:hover .play-button {
-            opacity: 1;
-        }
-
-        .play-button i {
-            font-size: 5vw;
-            text-shadow: 0 0 50px #2c7ffc;
-        }
-
-        .content {
-            padding: 2vw;
-        }
-
-        hr {
-            border: 0;
-            height: 3px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #fff, rgba(0, 0, 0, 0));
-        }
-
-        /* Search */
-        .search {
-            display: flex;
-            margin-top: 2vw;
-        }
-
-        .search input {
-            background-color: #141c2b;
-            border: none;
-            border-radius: 1vw 0 0 1vw;
-            color: #fff;
-            font-size: 1.5vw;
-            padding: 0.8vw 1.5vw;
-            outline: none;
-        }
-
-        .search button {
-            background: linear-gradient(90deg, #2c7ffc, #6cbcff);
-            border-radius: 0 1vw 1vw 0;
-            color: #0a0f1c;
-            font-size: 1.5vw;
-            padding: 0.8vw 1.2vw;
-            cursor: pointer;
-        }
-
-        /* Games grid */
-        #gamesList {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 2vw;
-        }
-
-        .gameCard img {
-            width: 15.6vw;
-            height: 15.6vw;
-            border-radius: 1vw;
-            margin: .5vw;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .gameCard img:hover {
-            transform: scale(1.03);
-        }
-
-        /* Player overlay */
-        #playerScreen {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #000;
-            display: none;
-            flex-direction: column;
-            z-index: 20;
-        }
-
-        #playerTop {
-            height: 5vw;
-            display: flex;
-            align-items: center;
-            padding: 0 1vw;
-            background: rgba(255,255,255,0.06);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        #playerTop button {
-            margin-right: 1vw;
-            padding: 0.6vw 1.4vw;
-            border-radius: 0.6vw;
-            cursor: pointer;
-            background: #1c2744;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-        }
-
-        #gameFrame { flex: 1; width: 100%; border: none; }
-    </style>
+body { background-color: #0b0f1c; font-family: 'Montserrat', sans-serif; margin: 0; color: #e6eaff; }
+nav { position: fixed; top: 0; left: 0; backdrop-filter: blur(12px) saturate(180%) brightness(80%); background: rgba(20, 30, 60, 0.35); display: flex; height: 7vw; width: 100%; align-items: center; padding: 0 1%; z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.1); }
+nav img { height: 80%; border-radius: 1vw; margin-right: 1%; box-shadow: 0 0 18px rgba(0, 153, 255, 0.35); }
+nav h1 { font-size: 4vw; font-weight: 900; background: linear-gradient(90deg, #6cbcff, #2c7ffc); -webkit-background-clip: text; color: transparent; }
+.content { padding: 2vw; }
+hr { border: 0; height: 3px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #fff, rgba(0, 0, 0, 0)); }
+.search { display: flex; margin-top: 2vw; }
+.search input { background-color: #141c2b; border: none; border-radius: 1vw 0 0 1vw; color: #fff; font-size: 1.5vw; padding: 0.8vw 1.5vw; outline: none; }
+.search button { background: linear-gradient(90deg, #2c7ffc, #6cbcff); border-radius: 0 1vw 1vw 0; color: #0a0f1c; font-size: 1.5vw; padding: 0.8vw 1.2vw; cursor: pointer; }
+#gamesList { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 2vw; }
+.gameCard img { width: 15.6vw; height: 15.6vw; border-radius: 1vw; margin: .5vw; cursor: pointer; transition: 0.2s; }
+.gameCard img:hover { transform: scale(1.03); }
+#playerScreen { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; flex-direction: column; z-index: 20; }
+#playerTop { height: 5vw; display: flex; align-items: center; padding: 0 1vw; background: rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.1); }
+#playerTop button { margin-right: 1vw; padding: 0.6vw 1.4vw; border-radius: 0.6vw; cursor: pointer; background: #1c2744; border: 1px solid rgba(255,255,255,0.2); color: white; }
+#gameFrame { flex: 1; width: 100%; height: 100%; border: none; }
+</style>
 </head>
 <body>
 
 <nav>
-    <img src="https://cdn.jsdelivr.net/gh/beforeblazergithub/BlazerGames@latest/logo.png">
-    <h1>Rice Games</h1>
+<img src="https://cdn.jsdelivr.net/gh/beforeblazergithub/BlazerGames@latest/logo.png">
+<h1>Rice Games</h1>
 </nav>
 
-<div class="featured">
-    <h1>Popular:</h1>
-    <!-- Auto-filled later with JS -->
-</div>
-
 <div class="content">
-    <hr>
-    <div class="search">
-        <input id="searchBar" type="text" placeholder="Search games...">
-        <button><i class="fas fa-search"></i></button>
-    </div>
-    <div id="gamesList"></div>
+<hr>
+<div class="search">
+<input id="searchBar" type="text" placeholder="Search games...">
+<button><i class="fas fa-search"></i></button>
+</div>
+<div id="gamesList"></div>
 </div>
 
-<!-- Player -->
 <div id="playerScreen">
-    <div id="playerTop">
-        <button id="backBtn">Back</button>
-        <button id="fullscreenBtn">Fullscreen</button>
-    </div>
-    <iframe id="gameFrame"></iframe>
+<div id="playerTop">
+<button id="backBtn">Back</button>
+</div>
+<iframe id="gameFrame"></iframe>
 </div>
 
 <script>
 const games = [
   {
     title: "Slope",
-    logo: "https://sandboxels.r74n.com/icons/cover-3840x1240px.webp",
-    url: "game/sandboxels.html",
+    logo: "images/slope.jpg",
+    url: "https://cdn.jsdelivr.net/gh/RiceEater15/RiceGames@main/game/sandboxels.html",
     featured: false
-  },
-  {
-    title: "Example Game",
-    logo: "https://cdn.jsdelivr.net/gh/beforeblazergithub/BlazerGames@latest/logo.png",
-    url: "https://cdn.jsdelivr.net/gh/beforeblazergithub/BlazerGames@latest/Index.html",
-    featured: true
   }
 ];
 
@@ -242,19 +63,6 @@ const gamesList = document.getElementById("gamesList");
 const searchBar = document.getElementById("searchBar");
 const playerScreen = document.getElementById("playerScreen");
 const frame = document.getElementById("gameFrame");
-const featuredBox = document.querySelector('.featured');
-
-function renderFeatured(){
-  games.filter(g=>g.featured).forEach(g=>{
-    const wrapper = document.createElement('a');
-    wrapper.style.position = "relative";
-    wrapper.onclick = ()=>openGame(g);
-    wrapper.innerHTML = `
-      <img src="${g.logo}">
-      <div class="play-button"><i class="fa-solid fa-play"></i></div>`;
-    featuredBox.appendChild(wrapper);
-  });
-}
 
 function render(list){
   gamesList.innerHTML = "";
@@ -262,22 +70,27 @@ function render(list){
     const div = document.createElement("div");
     div.className = "gameCard";
     div.innerHTML = `<img src='${g.logo}'><div class='gameTitle'>${g.title}</div>`;
-    div.onclick = ()=>openGame(g);
+    div.onclick = ()=>openGameHTML(g.url);
     gamesList.appendChild(div);
   });
 }
 
-function openGame(g){
+function openGameHTML(url){
   playerScreen.style.display = "flex";
-  frame.src = g.url;
+  fetch(url)
+    .then(res => res.text())
+    .then(html => {
+      frame.contentDocument.open();
+      frame.contentDocument.write(html);
+      frame.contentDocument.close();
+    })
+    .catch(err => console.error("Failed to load game:", err));
 }
 
 document.getElementById("backBtn").onclick = ()=>{
   playerScreen.style.display = "none";
-  frame.src = "about:blank";
+  frame.contentDocument.body.innerHTML = "";
 };
-
-document.getElementById("fullscreenBtn").onclick = ()=>frame.requestFullscreen();
 
 searchBar.oninput = ()=>{
   const q = searchBar.value.toLowerCase();
@@ -285,7 +98,6 @@ searchBar.oninput = ()=>{
 };
 
 render(games);
-renderFeatured();
 </script>
 
 </body>
